@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메인 페이지 html</title>
+  </head>
+  <body>
+    <!-- ---- 불러오기 ---- -->
+    <!-- 테일윈드 불러오기 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 폰트어썸 불러오기 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <!-- 제이쿼리 불러오기 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      tailwind.config = {
+        plugins: [
+          function ({ addVariant }) {
+            const groupVariantPrefixes = ["p1", "p2", "p3"];
+
+            function escapeClassName(className) {
+              return className
+                .replace(/\[/g, "\\[") // '['를 이스케이프
+                .replace(/\]/g, "\\]") // ']'를 이스케이프
+                .replace(/\#/g, "\\#") // '#'를 이스케이프
+                .replace(/\//g, "\\/"); // '/'를 이스케이프 (필요한 경우)
+            }
+            // group-on 변형 추가 함수
+            const addGroupOnVariant = (name = "") => {
+              const selector = name ? `group\\/${name}` : "group";
+              const variantName = name ? `group-on/${name}` : "group-on";
+              addVariant(variantName, ({ modifySelectors }) => {
+                modifySelectors(({ className }) => {
+                  return `.${selector}.on .${escapeClassName(
+                    variantName
+                  )}\\:${escapeClassName(className)}`;
+                });
+              });
+            };
+            // peer-on 변형 추가 함수
+            const addPeerOnVariant = (name = "") => {
+              const selector = name ? `peer\\/${name}` : "peer";
+              const variantName = name ? `peer-on/${name}` : "peer-on";
+              addVariant(variantName, ({ modifySelectors }) => {
+                modifySelectors(({ className }) => {
+                  return `.${selector}.on ~ .${escapeClassName(
+                    variantName
+                  )}\\:${escapeClassName(className)}`;
+                });
+              });
+            };
+            // 기본 group-on, peer-on 변형 추가
+            addGroupOnVariant();
+            addPeerOnVariant();
+            // 특정 그룹과 피어에 대한 변형 추가
+            groupVariantPrefixes.forEach((name) => {
+              addGroupOnVariant(name);
+              addPeerOnVariant(name);
+            });
+            // on 클래스에 대한 변형 추가
+            addVariant("on", ({ modifySelectors }) => {
+              modifySelectors(({ className }) => {
+                return `.on.on\\:${escapeClassName(className)}`;
+              });
+            });
+          },
+        ],
+      };
+    </script>
+
+    <div class="top-bar bg-white drop-shadow text-[#333]">
+      <div
+        class="con h-[84px] mx-auto flex px-3 justify-between whitespace-nowrap"
+      >
+        <div class="logo-box w-[175px] flex items-center -mt-1">
+          <img
+            src="https://raw.githubusercontent.com/imisfp/dwfnb_site1/refs/heads/main/copy/donwon_fnb/img/dw-PC-logo.png"
+            alt=""
+          />
+        </div>
+        <nav class="menu-box group">
+          <ul class="h-full flex pt-1">
+            <li class="">
+              <a
+                class="flex items-center h-full px-12 text-[18px] hover:text-[#ff8400] font-semibold"
+                href="#"
+                >회사소개</a
+              >
+              <ul
+                class="text-center py-5 invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300"
+              >
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >한눈에 보는 동원 F&B</a
+                  >
+                </li>
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >ESG 경영</a
+                  >
+                </li>
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >CEO 인사말</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a
+                class="flex items-center h-full px-12 text-[18px] hover:text-[#ff8400] font-semibold"
+                href="#"
+                >동원 B&P</a
+              >
+              <ul
+                class="text-center py-5 invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300"
+              >
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >브랜드 소개</a
+                  >
+                </li>
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >제품 소개</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a
+                class="flex items-center h-full px-12 text-[18px] hover:text-[#ff8400] font-semibold"
+                href="#"
+                >투자정보</a
+              >
+              <ul
+                class="text-center py-5 invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300"
+              >
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >재무정보</a
+                  >
+                </li>
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >공시정보</a
+                  >
+                </li>
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >전자공고</a
+                  >
+                </li>
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#">IR공고</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a
+                class="flex items-center h-full px-12 text-[18px] hover:text-[#ff8400] font-semibold"
+                href="#"
+                >고객센터</a
+              >
+              <ul
+                class="text-center py-5 invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300"
+              >
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >고객센터 이용안내</a
+                  >
+                </li>
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >뉴스 & 공지사항</a
+                  >
+                </li>
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >자주찾는질문</a
+                  >
+                </li>
+                <li>
+                  <a class="block py-2 hover:text-[#ff8400]" href="#"
+                    >고객의소리</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <div
+            class="menu-bg bg-white border-t-[1px] border-[#FF8400] w-full h-[210px] absolute top-[84px] left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 -z-10"
+          ></div>
+        </nav>
+        <div class="user-box flex">
+          <div class="search-box flex items-center px-4 text-[18px]">
+            <i class="fa-solid fa-magnifying-glass text-[#FF8400]"></i>
+          </div>
+          <div class="lang-box flex items-center">
+            <div
+              class="lang-con flex items-center border-[2px] border-orange-400 px-5 gap-1 rounded-[20px] text-[14px] py-1"
+            >
+              <span class="text-[#FF8400] mt-[0.5px]">KOR</span>
+              <span
+                ><i class="fa-solid fa-caret-down text-[#FF8400] pl-2"></i
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
